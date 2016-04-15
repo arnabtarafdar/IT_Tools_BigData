@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+  <property>
+    <name>nameNode</name>
+    <value>wasb://arnabcluster@storagefrd.blob.core.windows.net</value>
+  </property>
+
+  <property>
+    <name>jobTracker</name>
+    <value>hn0-arnabc.stcghepkilhubipveigkd0zzrf.cx.internal.cloudapp.net:8050</value>
+  </property>
+
+  <property>
+    <name>queueName</name>
+    <value>default</value>
+  </property>
+
+  <property>
+    <name>oozie.use.system.libpath</name>
+    <value>true</value>
+  </property>
+
+  <property>
+    <name>hiveScript</name>
+    <value>wasb://arnabcluster@storagefrd.blob.core.windows.net/Project/useoozie/query.hql</value>
+  </property>
+
+  <property>
+    <name>PythonScript</name>
+    <value>wasb://arnabcluster@storagefrd.blob.core.windows.net/Project/useoozie/weatherproj.hql</value>
+  </property>
+
+  <property>
+    <name>hiveTableName1</name>
+    <value>catalogue</value>
+  </property>
+
+  <property>
+    <name>hiveDataFolder1</name>
+    <value>wasb://arnabcluster@storagefrd.blob.core.windows.net/Project/Catalogue</value>
+  </property>
+
+  <property>
+    <name>hiveTableName2</name>
+    <value>customer</value>
+  </property>
+
+  <property>
+    <name>hiveDataFolder2</name>
+    <value>wasb://arnabcluster@storagefrd.blob.core.windows.net/Project/Customer</value>
+  </property>
+
+  <property>
+    <name>hiveTableName3</name>
+    <value>orders</value>
+  </property>
+
+  <property>
+    <name>hiveDataFolder3</name>
+    <value>wasb://arnabcluster@storagefrd.blob.core.windows.net/Project/Order</value>
+  </property>
+
+   <property>
+    <name>hiveTableName4</name>
+    <value>productref</value>
+  </property>
+
+  <property>
+    <name>hiveDataFolder4</name>
+    <value>wasb://arnabcluster@storagefrd.blob.core.windows.net/Project/Product Reference</value>
+  </property>
+
+   <property>
+    <name>hiveTableName5</name>
+    <value>variant</value>
+  </property>
+
+  <property>
+    <name>hiveDataFolder5</name>
+    <value>wasb://arnabcluster@storagefrd.blob.core.windows.net/Project/Variant</value>
+  </property>
+
+  <property>
+    <name>hiveDataFolder6</name>
+    <value>wasb://arnabcluster@storagefrd.blob.core.windows.net/Project/Result/Customers</value>
+  </property>
+
+   <property>
+    <name>hiveDataFolder7</name>
+    <value>wasb://arnabcluster@storagefrd.blob.core.windows.net/Project/Result/Products</value>
+  </property>
+  
+  <property>
+    <name>workflowPath</name>
+    <value>wasb://arnabcluster@storagefrd.blob.core.windows.net/Project/useoozie</value>
+  </property>
+  <property>
+    <name>coordStart</name>
+    <value>2016-04-15T17:30Z</value>
+  </property>
+
+  <property>
+    <name>coordEnd</name>
+    <value>2016-04-15T17:46Z</value>
+  </property>
+
+  <property>
+    <name>coordFrequency</name>
+    <value>5</value>
+  </property>
+
+  <property>
+    <name>coordTimezone</name>
+    <value>UTC</value>
+  </property>
+
+  <property>
+    <name>user.name</name>
+    <value>tarafdar</value>
+  </property>
+
+  <property>
+    <name>oozie.coord.application.path</name>
+    <value>wasb://arnabcluster@storagefrd.blob.core.windows.net/Project/useoozie</value>
+  </property>
+</configuration>

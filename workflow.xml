@@ -1,0 +1,53 @@
+<workflow-app name="useooziewf" xmlns="uri:oozie:workflow:0.2">
+  <start to = "RunHiveScript"/>
+  <action name="RunHiveScript">
+    <hive xmlns="uri:oozie:hive-action:0.2">
+      <job-tracker>${jobTracker}</job-tracker>
+      <name-node>${nameNode}</name-node>
+      <configuration>
+        <property>
+          <name>mapred.job.queue.name</name>
+          <value>${queueName}</value>
+        </property>
+      </configuration>
+      <script>${hiveScript}</script>
+      <param>hiveTableName1=${hiveTableName1}</param>
+      <param>hiveDataFolder1=${hiveDataFolder1}</param>
+      <param>hiveTableName2=${hiveTableName2}</param>
+      <param>hiveDataFolder2=${hiveDataFolder2}</param>
+      <param>hiveTableName3=${hiveTableName3}</param>
+      <param>hiveDataFolder3=${hiveDataFolder3}</param>
+      <param>hiveTableName4=${hiveTableName4}</param>
+      <param>hiveDataFolder4=${hiveDataFolder4}</param>
+      <param>hiveTableName5=${hiveTableName5}</param>
+      <param>hiveDataFolder5=${hiveDataFolder5}</param>
+      <param>hiveDataFolder6=${hiveDataFolder6}</param>
+      <param>hiveDataFolder7=${hiveDataFolder7}</param>
+    </hive>
+    <ok to="RunPythonScript"/>
+    <error to="fail"/>
+  </action>
+  <action name="RunPythonScript">
+        <shell xmlns="uri:oozie:shell-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <configuration>
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+            </configuration>
+            <exec>weatherproj.py</exec>
+	    <file>{PythonScript}</file> 	
+            <capture-output/>
+        </shell>
+        <ok to="end"/>
+        <error to="fail"/>
+    </action>	
+  <kill name="fail">
+    <message>Job failed, error message[${wf:errorMessage(wf:lastErrorNode())}] </message>
+  </kill>
+  <end name="end"/>
+</workflow-app>
+
+
