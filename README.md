@@ -1,5 +1,7 @@
 # IT_Tools_BigData
 
+#### The project was done using Azure HDInsight cluster.
+
 ## HIVE
 
 ### query.hql :
