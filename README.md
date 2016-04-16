@@ -1,6 +1,7 @@
 # IT_Tools_BigData
 
 #### The project was done using Azure HDInsight cluster.
+#### In our case the cluster considers an external Blob Storage on the cloud to be HDFS.
 
 ## HIVE
 
