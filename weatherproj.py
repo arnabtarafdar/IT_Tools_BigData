@@ -15,12 +15,16 @@ from azure.storage.blob import BlockBlobService
 import forecastio
 
 
-# In[118]:
+# Initializing the blob storage(HDFS)
+
+block_blob_service = BlockBlobService(account_name='storagefrd', account_key='YbZnDv9DZ6TmdPfzWW8sBeMiiro6qFyWtPZk/3ohQessmnB5BIOmhRGd7lOYUsgWLYNz1PmweBX+JKQxxL7lgA==')
+
+# Fetching the previously stored weather data located in hdfs to the local fs
 
 block_blob_service.get_blob_to_path('arnabcluster', 'Project/Weather/Weather.csv', 'Temp_Weather.csv')
 
 
-# In[ ]:
+# Creatind a dataframe for latitude and longitude for each department
 
 data=pd.DataFrame({"cities": ["Bourg-en-Bresse" , "Laon" , "Ajaccio" , "Bastia" , "Moulins" , 
             "Digne-les-Bains" , "Gap" , "Nice" , "Privas" , "Charleville-Mezieres" , "Foix" , 
@@ -66,7 +70,7 @@ data=pd.DataFrame({"cities": ["Bourg-en-Bresse" , "Laon" , "Ajaccio" , "Bastia" 
 })
 
 
-# In[119]:
+# Creating a temporary dataframe with the previous data if it exists.
 
 if os.path.isfile('Temp_Weather.csv') == True:
     Weather = pd.read_csv('Temp_Weather.csv')
@@ -74,7 +78,7 @@ else:
     Weather = pd.DataFrame(columns=['Cities','Day','Min_Temperature','Max_Temperature','Precipitation_prob','Humidity','Wind_Speed','Summary'])
 
 
-# In[13]:
+# Using the forcastIO API to fetch the weather data for all the departments in france
 
 temp = pd.DataFrame(columns=['Cities','Day','Min_Temperature','Max_Temperature','Precipitation_prob','Humidity','Wind_Speed','Summary'])
 
@@ -88,20 +92,18 @@ for i in data.itertuples():
     temp = temp.append(pd.Series([i.cities,day.time,day.temperatureMin,day.temperatureMax,day.precipProbability,day.humidity,day.windSpeed,day.summary],index=['Cities','Day','Min_Temperature','Max_Temperature','Precipitation_prob','Humidity','Wind_Speed','Summary']),ignore_index=True)
 
 
-# In[133]:
+# Appending the data for each day to the previous data
 
 Weather=Weather.append(temp,ignore_index=True)
 
-# In[103]:
 
-block_blob_service = BlockBlobService(account_name='storagefrd', account_key='YbZnDv9DZ6TmdPfzWW8sBeMiiro6qFyWtPZk/3ohQessmnB5BIOmhRGd7lOYUsgWLYNz1PmweBX+JKQxxL7lgA==')
 
-# In[134]:
+# Storing the temporary updated dataframe locally
 
 Weather.to_csv('Temp_Weather.csv')
 
 
-# In[135]:
+# Storing the updated weather data in the local file system to the HDFS i.e the Blob Storage
 
 from azure.storage.blob import ContentSettings
 block_blob_service.create_blob_from_path(
