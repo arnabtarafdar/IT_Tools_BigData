@@ -1,3 +1,5 @@
+# Creation of tables from external sources
+
 DROP TABLE ${hiveTableName1};
 CREATE EXTERNAL TABLE ${hiveTableName1}(productcolorid int, genderlabel string, suppliercolorlabel string, seasonlabel string)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\073'
@@ -22,6 +24,8 @@ DROP TABLE ${hiveTableName5};
 CREATE EXTERNAL TABLE ${hiveTableName5}(variantid int, minsize int, maxsize int, size string)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\073'
 STORED AS TEXTFILE LOCATION '${hiveDataFolder5}';
+
+# Intermediate Aggregations
 
 DROP TABLE temp;
 CREATE TABLE temp AS SELECT CUSTOMERID, GENDERLABEL,count(*) AS COUNT FROM 
@@ -56,6 +60,7 @@ FROM ${hiveTableName5})y
 ON (x.VARIANTID = y.VARIANTID)
 GROUP BY CUSTOMERID,SIZE;
 
+# Resultant Table for Customer Aggregations
 
 INSERT OVERWRITE DIRECTORY '${hiveDataFolder6}' 
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
@@ -74,6 +79,7 @@ join
 (select CUSTOMERID, max(ORDERDATE) AS LAST_PURCHASE_DATE from ${hiveTableName3} group by CUSTOMERID)n
 on(m.CUSTOMERID = n.CUSTOMERID);
 
+# Resultant Table for Product Aggregations
 
 INSERT OVERWRITE DIRECTORY '${hiveDataFolder7}' 
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
